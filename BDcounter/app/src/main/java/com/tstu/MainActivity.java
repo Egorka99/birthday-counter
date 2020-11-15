@@ -1,11 +1,13 @@
 package com.tstu;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -17,10 +19,13 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("SimpleDateFormat")
     private final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-    private EditText inputDate, textDaysLeft, textHoursLeft, text;
-    private ConstraintLayout constraintLayout2;
-    private static final int NOTIFY_ID = 101;
+    private EditText inputDate, textDaysLeft, textHoursLeft;
+    private TextView days;
+    private TextView text;
+    private TextView hours;
+    private ConstraintLayout constraintLayout3;
 
     // Идентификатор канала
     private static String CHANNEL_ID = "Birthday app";
@@ -30,10 +35,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inputDate = findViewById(R.id.inputDate);
+
+        text = findViewById(R.id.mainText);
         textDaysLeft = findViewById(R.id.editTextDaysLeft);
         textHoursLeft = findViewById(R.id.editTextHoursLeft);
-        constraintLayout2 = findViewById(R.id.constraintLayout2);
-        text = findViewById(R.id.editTextText);
+        days = findViewById(R.id.Days);
+        hours = findViewById(R.id.Hours);
+
+        constraintLayout3 = findViewById(R.id.constraintLayout3);
+
         inputDate.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
         inputDate.addTextChangedListener(new TextWatcher() {
             int beforeTextChangedLength;
@@ -74,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public void findOutBirthday(View view) {
 
         try {
-            constraintLayout2.setVisibility(View.VISIBLE);
-            text.setText("До дня рождения осталось :");
+            handleAfterBirthdayEventSearch();
             String date = inputDate.getText().toString();
             Utils.isValidDate(date);
             date += "-" + LocalDate.now().getYear();
@@ -87,13 +96,34 @@ public class MainActivity extends AppCompatActivity {
                 textDaysLeft.setText(String.valueOf(Math.abs(days)));
                 textHoursLeft.setText(String.valueOf(Math.abs(hours)));
             } else {
-                text.setText("С днем рождения!");
-                constraintLayout2.setVisibility(View.INVISIBLE);
+                handleBirthdayEvent();
             }
 
         } catch (Exception ignore) {
         }
 
+    }
+
+    private void handleAfterBirthdayEventSearch() {
+        text.setText("До дня рождения осталось :");
+
+        textDaysLeft.setVisibility(View.VISIBLE);
+        textHoursLeft.setVisibility(View.VISIBLE);
+        days.setVisibility(View.VISIBLE);
+        hours.setVisibility(View.VISIBLE);
+
+        constraintLayout3.setVisibility(View.INVISIBLE);
+    }
+
+    private void handleBirthdayEvent() {
+        text.setText("С днем рождения!");
+
+        textDaysLeft.setVisibility(View.INVISIBLE);
+        textHoursLeft.setVisibility(View.INVISIBLE);
+        days.setVisibility(View.INVISIBLE);
+        hours.setVisibility(View.INVISIBLE);
+
+        constraintLayout3.setVisibility(View.VISIBLE);
     }
 
 
