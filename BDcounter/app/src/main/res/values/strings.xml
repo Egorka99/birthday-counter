@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Birthday-counter</string>
+    <string name="headerText">Введите дату рождения</string>
+    <string name="days">Дней :</string>
+    <string name="hours">Часов :</string>
+    <string name="findOut">Узнать когда день рождения</string>
+</resources>
