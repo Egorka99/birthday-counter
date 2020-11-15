@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView days;
     private TextView text;
     private TextView hours;
+
+    private ConstraintLayout constraintLayout2;
     private ConstraintLayout constraintLayout3;
 
     // Идентификатор канала
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         days = findViewById(R.id.Days);
         hours = findViewById(R.id.Hours);
 
+        constraintLayout2 = findViewById(R.id.constraintLayout2);
         constraintLayout3 = findViewById(R.id.constraintLayout3);
 
         inputDate.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
@@ -107,22 +110,14 @@ public class MainActivity extends AppCompatActivity {
     private void handleAfterBirthdayEventSearch() {
         text.setText("До дня рождения осталось :");
 
-        textDaysLeft.setVisibility(View.VISIBLE);
-        textHoursLeft.setVisibility(View.VISIBLE);
-        days.setVisibility(View.VISIBLE);
-        hours.setVisibility(View.VISIBLE);
-
+        constraintLayout2.setVisibility(View.VISIBLE);
         constraintLayout3.setVisibility(View.INVISIBLE);
     }
 
     private void handleBirthdayEvent() {
         text.setText("С днем рождения!");
 
-        textDaysLeft.setVisibility(View.INVISIBLE);
-        textHoursLeft.setVisibility(View.INVISIBLE);
-        days.setVisibility(View.INVISIBLE);
-        hours.setVisibility(View.INVISIBLE);
-
+        constraintLayout2.setVisibility(View.INVISIBLE);
         constraintLayout3.setVisibility(View.VISIBLE);
     }
 
