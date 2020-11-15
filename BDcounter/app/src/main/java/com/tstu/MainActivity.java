@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             handleAfterBirthdayEventSearch();
             String date = inputDate.getText().toString();
             Utils.isValidDate(date);
-            date += "-" + LocalDate.now().getYear();
+            date += "-" + Calendar.getInstance().get(Calendar.YEAR);
             Date birthDayDate = Utils.getBirthdayDate(Objects.requireNonNull(format.parse(date)));
             long milliseconds = (birthDayDate.getTime() - new Date().getTime());
             long days = TimeUnit.MILLISECONDS.toDays(milliseconds);
